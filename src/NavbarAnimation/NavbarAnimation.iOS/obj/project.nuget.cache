@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "CZoLM6+1nhAjsmy/AptPH3TAdFnuAA6HZrPN6HkIVO19b0ROMNAZR21asFW/NwrsR3j1G6gxrk0n5qyVlQOZvA==",
+  "success": true,
+  "projectFilePath": "D:\\git\\RadekVyM\\Navbar-Animation-1\\src\\NavbarAnimation\\NavbarAnimation.iOS\\NavbarAnimation.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\radec\\.nuget\\packages\\skiasharp\\2.80.2\\skiasharp.2.80.2.nupkg.sha512",
+    "C:\\Users\\radec\\.nuget\\packages\\skiasharp.views\\2.80.2\\skiasharp.views.2.80.2.nupkg.sha512",
+    "C:\\Users\\radec\\.nuget\\packages\\skiasharp.views.forms\\2.80.2\\skiasharp.views.forms.2.80.2.nupkg.sha512",
+    "C:\\Users\\radec\\.nuget\\packages\\xamarin.essentials\\1.5.3.2\\xamarin.essentials.1.5.3.2.nupkg.sha512",
+    "C:\\Users\\radec\\.nuget\\packages\\xamarin.forms\\4.8.0.1451\\xamarin.forms.4.8.0.1451.nupkg.sha512"
+  ],
+  "logs": []
+}
