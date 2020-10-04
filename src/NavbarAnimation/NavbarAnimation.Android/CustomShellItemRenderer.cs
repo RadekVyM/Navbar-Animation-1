@@ -41,9 +41,9 @@ namespace NavbarAnimation.Droid
             outerlayout.Measure((int)MeasureSpecMode.Unspecified, (int)MeasureSpecMode.Unspecified);
 
             shellOverlay.RemoveAllViews();
-            shellOverlay.AddView(ConvertFormsToNative(todoTabBar.CustomView, 
-                new Xamarin.Forms.Rectangle(0, 0, Resources.DisplayMetrics.WidthPixels / Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density, (double)bottomView?.MeasuredHeight / Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density)));
-            // I use Resources.DisplayMetrics.WidthPixels because I want the width of the screen without the height of the navigation bar.
+            shellOverlay.AddView(ConvertFormsToNative(todoTabBar.CustomView,
+                new Xamarin.Forms.Rectangle(0, 0, Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Width / Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density, (double)bottomView?.MeasuredHeight / Xamarin.Essentials.DeviceDisplay.MainDisplayInfo.Density)));
+            // If I do not hide navigation bar, I have to use Resources.DisplayMetrics.WidthPixels (instead of DeviceDisplay.MainDisplayInfo.Width) because I want the width of the screen without the height of the navigation bar.
         }
 
         public override void OnConfigurationChanged(Configuration newConfig)
