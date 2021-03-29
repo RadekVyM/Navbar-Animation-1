@@ -8,7 +8,7 @@ A **Xamarin.Forms** Shell `TabBar` based on [Navbar Animation #1](https://dribbb
 ## My Xamarin.Forms implementation
 The entire TabBar is created using SkiaSharp library and uses Shell navigation. Works only on Android.
 
-![My Implementation](https://github.com/RadekVyM/Navbar-Animation-1/blob/main/navbaranimation%20gif%20720.gif)
+<img src="https://github.com/RadekVyM/Navbar-Animation-1/blob/main/navbaranimation%20gif%20720.gif" data-canonical-src="https://github.com/RadekVyM/Navbar-Animation-1/blob/main/navbaranimation%20gif%20720.gif" width="440" height="880" />
 
 Feel free to take this code and do what you will, but please make sure you acknowledge myself and also the original designer.
 
