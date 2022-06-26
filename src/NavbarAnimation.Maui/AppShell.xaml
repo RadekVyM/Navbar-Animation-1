@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<os:OverlayShell
+    x:Class="NavbarAnimation.Maui.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:NavbarAnimation.Maui"
+    xmlns:controls="clr-namespace:NavbarAnimation.Maui.Views.Controls"
+    xmlns:os="clr-namespace:NavbarAnimation.Maui.OverlayShell"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarIsVisible="False"
+    Shell.NavBarIsVisible="False">
+
+    <TabBar x:Name="tabBar">
+        
+    </TabBar>
+
+    <os:OverlayShell.Overlay>
+        <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
+            <controls:TabBarView VerticalOptions="End" HorizontalOptions="Fill" CurrentPageChanged="TabBarViewCurrentPageChanged"/>
+        </Grid>
+    </os:OverlayShell.Overlay>
+    
+</os:OverlayShell>

@@ -1,0 +1,146 @@
+namespace NavbarAnimation.Maui.Views.Controls;
+
+public partial class TabBarView : ContentView
+{
+    TabBarViewDrawable drawable = null;
+    bool initialChange = true;
+    float innerRadius => (float)backGraphicsView.Height / (11f / 4f);
+    float outerRadius => innerRadius + ((float)backGraphicsView.Height / 12f);
+    double iconHeight => 20;
+    double selectedIconTranslation => ((innerRadius * 2) - iconHeight) / 2;
+    double defaultIconTranslation => ((backGraphicsView.Height - innerRadius - iconHeight) / 2) + innerRadius;
+    
+    readonly Color barColor = Color.FromArgb("#fffb526b");
+    readonly Color circleColor = Color.FromArgb("#fffba303");
+
+    TabBarIconView currentIconView = null;
+
+    IList<TabBarIconView> iconViews;
+
+    public event Action<object, TabBarEventArgs> CurrentPageChanged;
+
+
+    public TabBarView()
+	{
+		InitializeComponent();
+
+        iconViews = iconsStack.Children.Cast<TabBarIconView>().ToList();
+        currentIconView = iconViews.First();
+
+        foreach (var view in boxViewStack.Children)
+        {
+            var boxView = view as View;
+
+            TapGestureRecognizer recognizer = new TapGestureRecognizer();
+            recognizer.Tapped += RecognizerTapped;
+
+            boxView.GestureRecognizers.Add(recognizer);
+        }
+
+        SizeChanged += TabBarViewSizeChanged;
+    }
+
+    private void TabBarViewSizeChanged(object sender, EventArgs e)
+    {
+        if (initialChange)
+        {
+            drawable = new TabBarViewDrawable(innerRadius, outerRadius, barColor, circleColor);
+            backGraphicsView.Drawable = drawable;
+            drawable.CircleCenter = new PointF(100, innerRadius);
+            backGraphicsView.Invalidate();
+
+            foreach (var iconView in iconViews)
+            {
+                iconView.TranslationY = defaultIconTranslation;
+            }
+
+            initialChange = false;
+        }
+
+        SetCircleToX(GetCircleCenterX(currentIconView));
+        currentIconView.TranslationY = selectedIconTranslation;
+    }
+
+    private void RecognizerTapped(object sender, EventArgs e)
+    {
+        var view = sender as BindableObject;
+        var iconView = GetIconViewInColumn(Grid.GetColumn(view));
+
+        int difference = Math.Abs(Grid.GetColumn(currentIconView) - Grid.GetColumn(iconView));
+
+        if (difference == 0)
+            return;
+
+        uint baseAnimationLength = 400;
+        uint animationLength = (uint)(Math.Pow(difference, 1 / 3d) * baseAnimationLength);
+        
+        var baseAnimation = new Animation();
+        var oldIconView = currentIconView;
+
+        var oldIconAnimation = new Animation(v =>
+        {
+            oldIconView.TranslationY = v;
+        }, oldIconView.TranslationY, defaultIconTranslation, easing: Easing.SpringOut);
+        var newIconAnimation = new Animation(v =>
+        {
+            iconView.TranslationY = v;
+        }, iconView.TranslationY, selectedIconTranslation, easing: Easing.SpringOut);
+
+        baseAnimation.Add(0, 0.8d, GetAnimationCircleToX(GetCircleCenterX(iconView)));
+        baseAnimation.Add(0, (double)baseAnimationLength / animationLength, oldIconAnimation);
+        baseAnimation.Add(1 - (double)baseAnimationLength / animationLength, 1, newIconAnimation);
+
+        baseAnimation.Commit(this, "Animation", length: baseAnimationLength);
+
+        currentIconView = iconView;
+        CurrentPageChanged?.Invoke(this, new TabBarEventArgs(currentIconView.Page));
+    }
+
+    private Animation GetAnimationCircleToX(float newX)
+    {
+        var circleAnimation = new Animation(v =>
+        {
+            drawable.CircleCenter = new PointF((float)v, drawable.CircleCenter.Y);
+            backGraphicsView.Invalidate();
+        }, drawable.CircleCenter.X, newX, easing: Easing.SpringOut, () =>
+        {
+            drawable.CircleCenter = new PointF(newX, drawable.CircleCenter.Y);
+            backGraphicsView.Invalidate();
+        });
+        return circleAnimation;
+    }
+
+    private void SetCircleToX(float newX)
+    {
+        drawable.CircleCenter = new PointF(newX, drawable.CircleCenter.Y);
+        backGraphicsView.Invalidate();
+    }
+
+    private float GetCircleCenterX(TabBarIconView iconView)
+    {
+        var segmentWidth = iconsStack.Width / iconsStack.Children.Count;
+        var circleCenterX = (Grid.GetColumn(iconView) * segmentWidth) + (segmentWidth / 2);
+
+        return (float)circleCenterX;
+    }
+
+    private TabBarIconView GetIconViewInColumn(int column)
+    {
+        foreach (var iconView in iconViews)
+        {
+            if (Grid.GetColumn(iconView) == column)
+                return iconView;
+        }
+        return null;
+    }
+}
+
+public class TabBarEventArgs : EventArgs
+{
+    public PageType CurrentPage { get; private set; }
+
+    public TabBarEventArgs(PageType currentPage)
+    {
+        CurrentPage = currentPage;
+    }
+}
