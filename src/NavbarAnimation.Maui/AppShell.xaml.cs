@@ -23,7 +23,7 @@ namespace NavbarAnimation.Maui
             tabBar.Items.Add(tab);
         }
 
-        private void TabBarViewCurrentPageChanged(object sender, Views.Controls.TabBarEventArgs e)
+        private void TabBarViewCurrentPageChanged(object sender, TabBarEventArgs e)
         {
             Shell.Current.GoToAsync("///" + e.CurrentPage.ToString());
         }

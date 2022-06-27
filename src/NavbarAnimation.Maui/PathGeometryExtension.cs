@@ -4,13 +4,13 @@ namespace NavbarAnimation.Maui
 {
     public class PathGeometryExtension : IMarkupExtension<Geometry>
     {
-        PathGeometryConverter PathGeometryConverter = new PathGeometryConverter();
+        PathGeometryConverter pathGeometryConverter = new PathGeometryConverter();
 
         public string Path { get; set; }
 
         public Geometry ProvideValue(IServiceProvider serviceProvider)
         {
-            var path = new PathGeometryConverter().ConvertFromInvariantString(Path) as Geometry;
+            var path = pathGeometryConverter.ConvertFromInvariantString(Path) as Geometry;
 
             return path;
         }

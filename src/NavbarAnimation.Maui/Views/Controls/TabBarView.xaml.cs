@@ -2,27 +2,32 @@ namespace NavbarAnimation.Maui.Views.Controls;
 
 public partial class TabBarView : ContentView
 {
-    TabBarViewDrawable drawable = null;
     bool initialChange = true;
     float innerRadius => (float)backGraphicsView.Height / (11f / 4f);
     float outerRadius => innerRadius + ((float)backGraphicsView.Height / 12f);
     double iconHeight => 20;
     double selectedIconTranslation => ((innerRadius * 2) - iconHeight) / 2;
     double defaultIconTranslation => ((backGraphicsView.Height - innerRadius - iconHeight) / 2) + innerRadius;
-    
-    readonly Color barColor = Color.FromArgb("#fffb526b");
-    readonly Color circleColor = Color.FromArgb("#fffba303");
 
+    TabBarViewDrawable drawable = null;
     TabBarIconView currentIconView = null;
-
     IList<TabBarIconView> iconViews;
+    
+    readonly Color barColor;
+    readonly Color circleColor;
 
-    public event Action<object, TabBarEventArgs> CurrentPageChanged;
+    public event Action<object, TabBarEventArgs> CurrentPageSelectionChanged;
 
 
     public TabBarView()
-	{
-		InitializeComponent();
+    {
+        App.Current.Resources.TryGetValue("Primary", out object primaryColor);
+        App.Current.Resources.TryGetValue("Secondary", out object secondaryColor);
+
+        barColor = primaryColor as Color;
+        circleColor = secondaryColor as Color;
+
+        InitializeComponent();
 
         iconViews = iconsStack.Children.Cast<TabBarIconView>().ToList();
         currentIconView = iconViews.First();
@@ -32,13 +37,14 @@ public partial class TabBarView : ContentView
             var boxView = view as View;
 
             TapGestureRecognizer recognizer = new TapGestureRecognizer();
-            recognizer.Tapped += RecognizerTapped;
+            recognizer.Tapped += ButtonTapped;
 
             boxView.GestureRecognizers.Add(recognizer);
         }
 
         SizeChanged += TabBarViewSizeChanged;
     }
+
 
     private void TabBarViewSizeChanged(object sender, EventArgs e)
     {
@@ -61,7 +67,7 @@ public partial class TabBarView : ContentView
         currentIconView.TranslationY = selectedIconTranslation;
     }
 
-    private void RecognizerTapped(object sender, EventArgs e)
+    private void ButtonTapped(object sender, EventArgs e)
     {
         var view = sender as BindableObject;
         var iconView = GetIconViewInColumn(Grid.GetColumn(view));
@@ -93,7 +99,7 @@ public partial class TabBarView : ContentView
         baseAnimation.Commit(this, "Animation", length: baseAnimationLength);
 
         currentIconView = iconView;
-        CurrentPageChanged?.Invoke(this, new TabBarEventArgs(currentIconView.Page));
+        CurrentPageSelectionChanged?.Invoke(this, new TabBarEventArgs(currentIconView.Page));
     }
 
     private Animation GetAnimationCircleToX(float newX)
@@ -132,15 +138,5 @@ public partial class TabBarView : ContentView
                 return iconView;
         }
         return null;
-    }
-}
-
-public class TabBarEventArgs : EventArgs
-{
-    public PageType CurrentPage { get; private set; }
-
-    public TabBarEventArgs(PageType currentPage)
-    {
-        CurrentPage = currentPage;
     }
 }

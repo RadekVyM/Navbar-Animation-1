@@ -18,6 +18,15 @@
             <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="CornerRadius" Value="0"/>
+            <Setter Property="BorderWidth" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+        </Style>
     </ContentView.Resources>
 
     <Grid VerticalOptions="Center" HeightRequest="{StaticResource ViewHeight}">
@@ -36,11 +45,11 @@
               HeightRequest="{StaticResource ViewHeight}"
               VerticalOptions="End" HorizontalOptions="Fill"
               ColumnDefinitions="*,*,*,*,*">
-            <ContentView Style="{StaticResource TapViewStyle}" Grid.Column="0"/>
-            <ContentView Style="{StaticResource TapViewStyle}" Grid.Column="1"/>
-            <ContentView Style="{StaticResource TapViewStyle}" Grid.Column="2"/>
-            <ContentView Style="{StaticResource TapViewStyle}" Grid.Column="3"/>
-            <ContentView Style="{StaticResource TapViewStyle}" Grid.Column="4"/>
+            <Button Grid.Column="0" Clicked="ButtonTapped" SemanticProperties.Description="Ribbon page"/>
+            <Button Grid.Column="1" Clicked="ButtonTapped" SemanticProperties.Description="Folder page"/>
+            <Button Grid.Column="2" Clicked="ButtonTapped" SemanticProperties.Description="Home page"/>
+            <Button Grid.Column="3" Clicked="ButtonTapped" SemanticProperties.Description="Pin page"/>
+            <Button Grid.Column="4" Clicked="ButtonTapped" SemanticProperties.Description="Chat page"/>
         </Grid>
     </Grid>
 </ContentView>

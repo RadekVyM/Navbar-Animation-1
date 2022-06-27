@@ -16,7 +16,7 @@
 
     <os:OverlayShell.Overlay>
         <Grid VerticalOptions="Fill" HorizontalOptions="Fill">
-            <controls:TabBarView VerticalOptions="End" HorizontalOptions="Fill" CurrentPageChanged="TabBarViewCurrentPageChanged"/>
+            <controls:TabBarView VerticalOptions="End" HorizontalOptions="Fill" CurrentPageSelectionChanged="TabBarViewCurrentPageChanged"/>
         </Grid>
     </os:OverlayShell.Overlay>
     
