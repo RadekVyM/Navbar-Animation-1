@@ -32,16 +32,6 @@ public partial class TabBarView : ContentView
         iconViews = iconsStack.Children.Cast<TabBarIconView>().ToList();
         currentIconView = iconViews.First();
 
-        foreach (var view in boxViewStack.Children)
-        {
-            var boxView = view as View;
-
-            TapGestureRecognizer recognizer = new TapGestureRecognizer();
-            recognizer.Tapped += ButtonTapped;
-
-            boxView.GestureRecognizers.Add(recognizer);
-        }
-
         SizeChanged += TabBarViewSizeChanged;
     }
 

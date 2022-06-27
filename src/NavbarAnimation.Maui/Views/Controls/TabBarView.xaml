@@ -41,8 +41,7 @@
             <c:TabBarIconView Grid.Column="3" Path="{StaticResource PinPathGeometry}" Page="PinPage"/>
             <c:TabBarIconView Grid.Column="4" Path="{StaticResource ChatPathGeometry}" Page="ChatPage"/>
         </Grid>
-        <Grid x:Name="boxViewStack"
-              HeightRequest="{StaticResource ViewHeight}"
+        <Grid HeightRequest="{StaticResource ViewHeight}"
               VerticalOptions="End" HorizontalOptions="Fill"
               ColumnDefinitions="*,*,*,*,*">
             <Button Grid.Column="0" Clicked="ButtonTapped" SemanticProperties.Description="Ribbon page"/>
