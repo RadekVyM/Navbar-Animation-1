@@ -2,7 +2,7 @@
 
 namespace NavbarAnimation.Maui
 {
-    public partial class AppShell : OverlayShell.OverlayShell
+    public partial class AppShell : SimpleToolkit.SimpleShell.SimpleShell
     {
         public AppShell()
         {
@@ -13,6 +13,18 @@ namespace NavbarAnimation.Maui
             AddTab(typeof(HomePage), PageType.HomePage);
             AddTab(typeof(PinPage), PageType.PinPage);
             AddTab(typeof(ChatPage), PageType.ChatPage);
+
+            pageContainer.SizeChanged += PageContainerSizeChanged;
+        }
+
+        private void PageContainerSizeChanged(object sender, EventArgs e)
+        {
+            var insets = this.Window.GetSafeAreaInsets();
+
+            pageContainer.Margin = insets;
+            tabBarView.Margin = insets;
+            bottomBackgroundRectangle.IsVisible = insets.Bottom > 0;
+            bottomBackgroundRectangle.HeightRequest = insets.Bottom;
         }
 
         private void AddTab(Type page, PageType pageEnum)

@@ -1,6 +1,5 @@
-﻿using Microsoft.Maui.Handlers;
-using Microsoft.Maui.Platform;
-using NavbarAnimation.Maui.OverlayShell;
+﻿using SimpleToolkit.Core;
+using SimpleToolkit.SimpleShell;
 
 namespace NavbarAnimation.Maui
 {
@@ -20,16 +19,8 @@ namespace NavbarAnimation.Maui
                     fonts.AddFont("Comfortaa-Medium.ttf", "MediumFont");
                     fonts.AddFont("Comfortaa-SemiBold.ttf", "SemiBoldFont");
                 })
-                .ConfigureMauiHandlers(handlers =>
-                {
-#if ANDROID
-                    handlers.TryAddHandler(typeof(OverlayShell.OverlayShell), typeof(OverlayShellRenderer));
-#elif IOS || MACCATALYST
-                    handlers.TryAddHandler(typeof(OverlayShell.OverlayShell), typeof(OverlayShellRenderer));
-#elif WINDOWS
-                    handlers.TryAddHandler(typeof(OverlayShell.OverlayShell), typeof(OverlayShellHandler));
-#endif
-                });
+                .UseSimpleToolkit()
+                .UseSimpleShell();
 
             return builder.Build();
         }

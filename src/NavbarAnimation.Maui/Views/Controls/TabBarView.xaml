@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:c="clr-namespace:NavbarAnimation.Maui.Views.Controls"
-             x:Class="NavbarAnimation.Maui.Views.Controls.TabBarView"
-             InputTransparent="False">
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:c="clr-namespace:NavbarAnimation.Maui.Views.Controls"
+    xmlns:simpleCore="clr-namespace:SimpleToolkit.Core;assembly=SimpleToolkit.Core"
+    x:Class="NavbarAnimation.Maui.Views.Controls.TabBarView"
+    InputTransparent="False">
 
     <ContentView.Resources>
         <x:Double x:Key="ViewHeight">80</x:Double>
@@ -11,6 +13,7 @@
             <Setter Property="HeightRequest" Value="20"/>
             <Setter Property="WidthRequest" Value="30"/>
             <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="VerticalOptions" Value="Start"/>
         </Style>
         <Style x:Key="TapViewStyle" TargetType="{x:Type ContentView}">
             <Setter Property="HorizontalOptions" Value="Fill"/>
@@ -18,37 +21,51 @@
             <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
-        <Style TargetType="{x:Type Button}">
+        <Style TargetType="{x:Type simpleCore:ContentButton}">
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
             <Setter Property="Margin" Value="0"/>
-            <Setter Property="CornerRadius" Value="0"/>
-            <Setter Property="BorderWidth" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
     </ContentView.Resources>
 
     <Grid VerticalOptions="Center" HeightRequest="{StaticResource ViewHeight}">
-        <GraphicsView x:Name="backGraphicsView" HeightRequest="{StaticResource ViewHeight}" InputTransparent="True"/>
-        <Grid x:Name="iconsStack"
-              HeightRequest="{StaticResource ViewHeight}"
-              VerticalOptions="End" HorizontalOptions="Fill"
-              ColumnDefinitions="*,*,*,*,*">
-            <c:TabBarIconView Grid.Column="0" Path="{StaticResource RibbonPathGeometry}" Page="RibbonPage"/>
-            <c:TabBarIconView Grid.Column="1" Path="{StaticResource FolderPathGeometry}" Page="FolderPage"/>
-            <c:TabBarIconView Grid.Column="2" Path="{StaticResource HomePathGeometry}" Page="HomePage"/>
-            <c:TabBarIconView Grid.Column="3" Path="{StaticResource PinPathGeometry}" Page="PinPage"/>
-            <c:TabBarIconView Grid.Column="4" Path="{StaticResource ChatPathGeometry}" Page="ChatPage"/>
-        </Grid>
-        <Grid HeightRequest="{StaticResource ViewHeight}"
-              VerticalOptions="End" HorizontalOptions="Fill"
-              ColumnDefinitions="*,*,*,*,*">
-            <Button Grid.Column="0" Clicked="ButtonTapped" SemanticProperties.Description="Ribbon page"/>
-            <Button Grid.Column="1" Clicked="ButtonTapped" SemanticProperties.Description="Folder page"/>
-            <Button Grid.Column="2" Clicked="ButtonTapped" SemanticProperties.Description="Home page"/>
-            <Button Grid.Column="3" Clicked="ButtonTapped" SemanticProperties.Description="Pin page"/>
-            <Button Grid.Column="4" Clicked="ButtonTapped" SemanticProperties.Description="Chat page"/>
+        <GraphicsView
+            x:Name="backGraphicsView"
+            HeightRequest="{StaticResource ViewHeight}"
+            InputTransparent="True"
+            Background="Transparent"/>
+        <Grid
+            x:Name="buttonsGrid"
+            HeightRequest="{StaticResource ViewHeight}"
+            VerticalOptions="End" HorizontalOptions="Fill"
+            ColumnDefinitions="*,*,*,*,*">
+            <simpleCore:ContentButton
+                Grid.Column="0" Clicked="ButtonTapped"
+                SemanticProperties.Description="Ribbon page">
+                <c:TabBarIconView Path="{StaticResource RibbonPathGeometry}" Page="RibbonPage"/>
+            </simpleCore:ContentButton>
+            <simpleCore:ContentButton
+                Grid.Column="1" Clicked="ButtonTapped"
+                SemanticProperties.Description="Folder page">
+                <c:TabBarIconView Path="{StaticResource FolderPathGeometry}" Page="FolderPage"/>
+            </simpleCore:ContentButton>
+            <simpleCore:ContentButton
+                Grid.Column="2" Clicked="ButtonTapped"
+                SemanticProperties.Description="Home page">
+                <c:TabBarIconView Path="{StaticResource HomePathGeometry}" Page="HomePage"/>
+            </simpleCore:ContentButton>
+            <simpleCore:ContentButton
+                Grid.Column="3" Clicked="ButtonTapped"
+                SemanticProperties.Description="Pin page">
+                <c:TabBarIconView Path="{StaticResource PinPathGeometry}" Page="PinPage"/>
+            </simpleCore:ContentButton>
+            <simpleCore:ContentButton
+                Grid.Column="4" Clicked="ButtonTapped"
+                SemanticProperties.Description="Chat page">
+                <c:TabBarIconView Path="{StaticResource ChatPathGeometry}" Page="ChatPage"/>
+            </simpleCore:ContentButton>
         </Grid>
     </Grid>
 </ContentView>

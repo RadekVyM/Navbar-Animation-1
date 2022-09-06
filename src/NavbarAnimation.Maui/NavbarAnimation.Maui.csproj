@@ -31,6 +31,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="SimpleToolkit.Core" Version="1.*" />
+		<PackageReference Include="SimpleToolkit.SimpleShell" Version="1.*" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#fb526b" />
 

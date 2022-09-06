@@ -1,3 +1,5 @@
+using SimpleToolkit.Core;
+
 namespace NavbarAnimation.Maui.Views.Controls;
 
 public partial class TabBarView : ContentView
@@ -10,6 +12,7 @@ public partial class TabBarView : ContentView
     double defaultIconTranslation => ((backGraphicsView.Height - innerRadius - iconHeight) / 2) + innerRadius;
 
     TabBarViewDrawable drawable = null;
+    ContentButton currentButton = null;
     TabBarIconView currentIconView = null;
     IList<TabBarIconView> iconViews;
     
@@ -29,10 +32,15 @@ public partial class TabBarView : ContentView
 
         InitializeComponent();
 
-        iconViews = iconsStack.Children.Cast<TabBarIconView>().ToList();
-        currentIconView = iconViews.First();
+        iconViews = buttonsGrid.Children
+            .Cast<ContentButton>()
+            .Select(cb => cb.Content)
+            .Cast<TabBarIconView>()
+            .ToList();
+        currentButton = buttonsGrid.First() as ContentButton;
+        currentIconView = currentButton.Content as TabBarIconView;
 
-        SizeChanged += TabBarViewSizeChanged;
+        backGraphicsView.SizeChanged += TabBarViewSizeChanged;
     }
 
 
@@ -53,16 +61,16 @@ public partial class TabBarView : ContentView
             initialChange = false;
         }
 
-        SetCircleToX(GetCircleCenterX(currentIconView));
+        SetCircleToX(GetCircleCenterX(currentButton));
         currentIconView.TranslationY = selectedIconTranslation;
     }
 
     private void ButtonTapped(object sender, EventArgs e)
     {
-        var view = sender as BindableObject;
-        var iconView = GetIconViewInColumn(Grid.GetColumn(view));
+        var button = sender as ContentButton;
+        var iconView = button.Content as TabBarIconView;
 
-        int difference = Math.Abs(Grid.GetColumn(currentIconView) - Grid.GetColumn(iconView));
+        int difference = Math.Abs(Grid.GetColumn(currentButton) - Grid.GetColumn(button));
 
         if (difference == 0)
             return;
@@ -82,13 +90,14 @@ public partial class TabBarView : ContentView
             iconView.TranslationY = v;
         }, iconView.TranslationY, selectedIconTranslation, easing: Easing.SpringOut);
 
-        baseAnimation.Add(0, 0.8d, GetAnimationCircleToX(GetCircleCenterX(iconView)));
+        baseAnimation.Add(0, 0.8d, GetAnimationCircleToX(GetCircleCenterX(button)));
         baseAnimation.Add(0, (double)baseAnimationLength / animationLength, oldIconAnimation);
         baseAnimation.Add(1 - (double)baseAnimationLength / animationLength, 1, newIconAnimation);
 
         baseAnimation.Commit(this, "Animation", length: baseAnimationLength);
 
         currentIconView = iconView;
+        currentButton = button;
         CurrentPageSelectionChanged?.Invoke(this, new TabBarEventArgs(currentIconView.Page));
     }
 
@@ -112,21 +121,11 @@ public partial class TabBarView : ContentView
         backGraphicsView.Invalidate();
     }
 
-    private float GetCircleCenterX(TabBarIconView iconView)
+    private float GetCircleCenterX(ContentButton button)
     {
-        var segmentWidth = iconsStack.Width / iconsStack.Children.Count;
-        var circleCenterX = (Grid.GetColumn(iconView) * segmentWidth) + (segmentWidth / 2);
+        var segmentWidth = backGraphicsView.Width / buttonsGrid.Children.Count;
+        var circleCenterX = (Grid.GetColumn(button) * segmentWidth) + (segmentWidth / 2);
 
         return (float)circleCenterX;
-    }
-
-    private TabBarIconView GetIconViewInColumn(int column)
-    {
-        foreach (var iconView in iconViews)
-        {
-            if (Grid.GetColumn(iconView) == column)
-                return iconView;
-        }
-        return null;
     }
 }
