@@ -8,7 +8,7 @@
 
 ## My .NET MAUI implementation
 
-The application was built using .NET MAUI APIs, and my library [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit).
+The application was built using .NET MAUI APIs and my library [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit).
 
 <p align="center">
     <img src="./Images/navbaranimation%20gif%20720.gif" data-canonical-src="./Images/navbaranimation%20gif%20720.gif" height="600" />
