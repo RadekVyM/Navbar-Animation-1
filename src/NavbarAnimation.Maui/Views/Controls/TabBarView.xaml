@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -15,12 +15,6 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="VerticalOptions" Value="Start"/>
         </Style>
-        <Style x:Key="TapViewStyle" TargetType="{x:Type ContentView}">
-            <Setter Property="HorizontalOptions" Value="Fill"/>
-            <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
-            <Setter Property="Background" Value="Transparent"/>
-        </Style>
         <Style TargetType="{x:Type simpleCore:ContentButton}">
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
@@ -30,7 +24,10 @@
         </Style>
     </ContentView.Resources>
 
-    <Grid VerticalOptions="Center" HeightRequest="{StaticResource ViewHeight}">
+    <Grid
+        VerticalOptions="Center"
+        HeightRequest="{StaticResource ViewHeight}"
+        CompressedLayout.IsHeadless="True">
         <GraphicsView
             x:Name="backGraphicsView"
             HeightRequest="{StaticResource ViewHeight}"
@@ -38,33 +35,34 @@
             Background="Transparent"/>
         <Grid
             x:Name="buttonsGrid"
+            CompressedLayout.IsHeadless="True"
             HeightRequest="{StaticResource ViewHeight}"
             VerticalOptions="End" HorizontalOptions="Fill"
             ColumnDefinitions="*,*,*,*,*">
             <simpleCore:ContentButton
                 Grid.Column="0" Clicked="ButtonTapped"
                 SemanticProperties.Description="Ribbon page">
-                <c:TabBarIconView Path="{StaticResource RibbonPathGeometry}" Page="RibbonPage"/>
+                <c:TabBarIconView Source="icon_ribbon.png" Page="RibbonPage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="1" Clicked="ButtonTapped"
                 SemanticProperties.Description="Folder page">
-                <c:TabBarIconView Path="{StaticResource FolderPathGeometry}" Page="FolderPage"/>
+                <c:TabBarIconView Source="icon_folder.png" Page="FolderPage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="2" Clicked="ButtonTapped"
                 SemanticProperties.Description="Home page">
-                <c:TabBarIconView Path="{StaticResource HomePathGeometry}" Page="HomePage"/>
+                <c:TabBarIconView Source="icon_house.png" Page="HomePage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="3" Clicked="ButtonTapped"
                 SemanticProperties.Description="Pin page">
-                <c:TabBarIconView Path="{StaticResource PinPathGeometry}" Page="PinPage"/>
+                <c:TabBarIconView Source="icon_pin.png" Page="PinPage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="4" Clicked="ButtonTapped"
                 SemanticProperties.Description="Chat page">
-                <c:TabBarIconView Path="{StaticResource ChatPathGeometry}" Page="ChatPage"/>
+                <c:TabBarIconView Source="icon_chat.png" Page="ChatPage"/>
             </simpleCore:ContentButton>
         </Grid>
     </Grid>

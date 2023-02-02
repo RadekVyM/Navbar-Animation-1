@@ -1,18 +1,18 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="NavbarAnimation.Maui.Views.Controls.TabBarIconView">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:simpleCore="clr-namespace:SimpleToolkit.Core;assembly=SimpleToolkit.Core"
+    x:Class="NavbarAnimation.Maui.Views.Controls.TabBarIconView">
     <ContentView.Resources>
-        <Style x:Key="IconPath" TargetType="{x:Type Path}">
+        <Style x:Key="IconStyle" TargetType="{x:Type simpleCore:Icon}">
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Fill"/>
-            <Setter Property="Stroke" Value="White"/>
-            <Setter Property="StrokeThickness" Value="2"/>
-            <Setter Property="StrokeLineJoin" Value="Round"/>
-            <Setter Property="StrokeLineCap" Value="Round"/>
-            <Setter Property="Aspect" Value="Uniform"/>
+            <Setter Property="TintColor" Value="White"/>
         </Style>
     </ContentView.Resources>
 
-    <Path Style="{StaticResource IconPath}" Data="{Binding Path}"/>
+    <simpleCore:Icon
+        Style="{StaticResource IconStyle}"
+        Source="{Binding Source}"/>
 </ContentView>

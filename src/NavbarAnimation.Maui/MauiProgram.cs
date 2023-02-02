@@ -22,6 +22,10 @@ namespace NavbarAnimation.Maui
                 .UseSimpleToolkit()
                 .UseSimpleShell();
 
+#if ANDROID || IOS
+            builder.DisplayContentBehindBars();
+#endif
+
             return builder.Build();
         }
     }

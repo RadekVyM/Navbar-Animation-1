@@ -5,14 +5,16 @@ namespace NavbarAnimation.Maui.Views.Controls;
 public partial class TabBarIconView : ContentView
 {
     public PageType Page { get; set; }
-    public Geometry Path
+    
+    public ImageSource Source
     {
-        get => (Geometry)GetValue(PathProperty);
-        set => SetValue(PathProperty, value);
+        get => (ImageSource)GetValue(SourceProperty);
+        set => SetValue(SourceProperty, value);
     }
 
-    public static readonly BindableProperty PathProperty =
-        BindableProperty.Create(nameof(Path), typeof(Geometry), typeof(TabBarIconView), default(Geometry), BindingMode.OneWay);
+    public static readonly BindableProperty SourceProperty =
+        BindableProperty.Create(nameof(Source), typeof(ImageSource), typeof(TabBarIconView), default(ImageSource), BindingMode.OneWay);
+
 
     public TabBarIconView()
 	{

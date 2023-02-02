@@ -1,8 +1,10 @@
 ﻿<?xml version = "1.0" encoding = "UTF-8" ?>
-<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:NavbarAnimation.Maui"
-             x:Class="NavbarAnimation.Maui.App">
+<Application
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:NavbarAnimation.Maui"
+    xmlns:simpleCore="clr-namespace:SimpleToolkit.Core.MarkupExtensions;assembly=SimpleToolkit.Core"
+    x:Class="NavbarAnimation.Maui.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,11 +18,11 @@
             <x:String x:Key="PinPath">m 77.700261,8.5943857 c 0,0 0,-1.1550619 0,-1.4407499 -0.226478,0 -0.582563,-0.076135 -0.582563,-0.5825641 0,-0.4015997 0.25443,-0.5763 0.5763,-0.5762998 0.326792,2e-7 0.586759,0.183578 0.593003,0.5930043 0.0067,0.4408217 -0.366804,0.5658596 -0.58674,0.5658596</x:String>
             <x:String x:Key="ChatPath">m 87.734179,6.6910642 v -0.097152 c 0,-0.071635 0.01192,-0.1157552 0.115755,-0.1157552 h 1.465543 c 0.07837,0 0.144695,0.063171 0.144695,0.144694 v 0.8722981 c 7.86e-4,0.1955795 -0.200506,0.09668 -0.200506,0.2005045 v 0.4857586 m -1.963704,0.5457036 0.628386,-0.4878255 h 0.681065 c 0.125672,0 0.179865,-0.08133 0.179865,-0.1652482 V 7.1685546 c 0,-0.085286 -0.05416,-0.168982 -0.168984,-0.168982 h -1.400947 c -0.117231,0 -0.213681,0.084932 -0.213681,0.213682 v 0.8978781 c 0,0.075696 0.05643,0.1244111 0.12441,0.1244111 l 0.165751,0.00413 z</x:String>
 
-            <local:PathGeometryExtension x:Key="RibbonPathGeometry" Path="{StaticResource RibbonPath}"/>
-            <local:PathGeometryExtension x:Key="FolderPathGeometry" Path="{StaticResource FolderPath}"/>
-            <local:PathGeometryExtension x:Key="HomePathGeometry" Path="{StaticResource HomePath}"/>
-            <local:PathGeometryExtension x:Key="PinPathGeometry" Path="{StaticResource PinPath}"/>
-            <local:PathGeometryExtension x:Key="ChatPathGeometry" Path="{StaticResource ChatPath}"/>
+            <simpleCore:PathGeometryExtension x:Key="RibbonPathGeometry" Path="{StaticResource RibbonPath}"/>
+            <simpleCore:PathGeometryExtension x:Key="FolderPathGeometry" Path="{StaticResource FolderPath}"/>
+            <simpleCore:PathGeometryExtension x:Key="HomePathGeometry" Path="{StaticResource HomePath}"/>
+            <simpleCore:PathGeometryExtension x:Key="PinPathGeometry" Path="{StaticResource PinPath}"/>
+            <simpleCore:PathGeometryExtension x:Key="ChatPathGeometry" Path="{StaticResource ChatPath}"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

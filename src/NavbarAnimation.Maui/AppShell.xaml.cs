@@ -1,4 +1,5 @@
 ﻿using NavbarAnimation.Maui.Views.Pages;
+using SimpleToolkit.Core;
 
 namespace NavbarAnimation.Maui
 {
@@ -14,17 +15,20 @@ namespace NavbarAnimation.Maui
             AddTab(typeof(PinPage), PageType.PinPage);
             AddTab(typeof(ChatPage), PageType.ChatPage);
 
-            pageContainer.SizeChanged += PageContainerSizeChanged;
+            Loaded += AppShellLoaded;
         }
 
-        private void PageContainerSizeChanged(object sender, EventArgs e)
+        private static void AppShellLoaded(object sender, EventArgs e)
         {
-            var insets = this.Window.GetSafeAreaInsets();
+            var shell = sender as AppShell;
 
-            pageContainer.Margin = insets;
-            tabBarView.Margin = insets;
-            bottomBackgroundRectangle.IsVisible = insets.Bottom > 0;
-            bottomBackgroundRectangle.HeightRequest = insets.Bottom;
+            shell.Window.SubscribeToSafeAreaChanges(safeArea =>
+            {
+                shell.pageContainer.Margin = safeArea;
+                shell.tabBarView.Margin = safeArea;
+                shell.bottomBackgroundRectangle.IsVisible = safeArea.Bottom > 0;
+                shell.bottomBackgroundRectangle.HeightRequest = safeArea.Bottom;
+            });
         }
 
         private void AddTab(Type page, PageType pageEnum)
