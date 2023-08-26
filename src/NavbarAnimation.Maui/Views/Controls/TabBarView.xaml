@@ -38,7 +38,7 @@
             CompressedLayout.IsHeadless="True"
             HeightRequest="{StaticResource ViewHeight}"
             VerticalOptions="End" HorizontalOptions="Fill"
-            ColumnDefinitions="*,*,*,*,*">
+            ColumnDefinitions="*, *, *, *, *">
             <simpleCore:ContentButton
                 Grid.Column="0" Clicked="ButtonTapped"
                 SemanticProperties.Description="Ribbon page">

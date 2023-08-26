@@ -5,7 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:NavbarAnimation.Maui"
     xmlns:controls="clr-namespace:NavbarAnimation.Maui.Views.Controls"
-    xmlns:simpleShell="clr-namespace:SimpleToolkit.SimpleShell;assembly=SimpleToolkit.SimpleShell">
+    xmlns:simpleShell="clr-namespace:SimpleToolkit.SimpleShell;assembly=SimpleToolkit.SimpleShell"
+
+    Background="{AppThemeBinding Default=White, Dark=Black}">
 
     <TabBar x:Name="tabBar">
     </TabBar>
