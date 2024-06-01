@@ -8,7 +8,6 @@
     InputTransparent="False">
 
     <ContentView.Resources>
-        <x:Double x:Key="ViewHeight">80</x:Double>
         <Style TargetType="{x:Type c:TabBarIconView}">
             <Setter Property="HeightRequest" Value="20"/>
             <Setter Property="WidthRequest" Value="30"/>
@@ -18,26 +17,23 @@
         <Style TargetType="{x:Type simpleCore:ContentButton}">
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
-            <Setter Property="HeightRequest" Value="{StaticResource ViewHeight}"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
     </ContentView.Resources>
 
     <Grid
+        x:Name="rootGrid"
         VerticalOptions="Center"
-        HeightRequest="{StaticResource ViewHeight}"
         CompressedLayout.IsHeadless="True">
         <GraphicsView
             x:Name="backGraphicsView"
-            HeightRequest="{StaticResource ViewHeight}"
             InputTransparent="True"
             Background="Transparent"/>
         <Grid
             x:Name="buttonsGrid"
             CompressedLayout.IsHeadless="True"
-            HeightRequest="{StaticResource ViewHeight}"
-            VerticalOptions="End" HorizontalOptions="Fill"
+            VerticalOptions="Fill" HorizontalOptions="Fill"
             ColumnDefinitions="*, *, *, *, *">
             <simpleCore:ContentButton
                 Grid.Column="0" Clicked="ButtonTapped"

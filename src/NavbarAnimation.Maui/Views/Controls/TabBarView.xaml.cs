@@ -4,20 +4,32 @@ namespace NavbarAnimation.Maui.Views.Controls;
 
 public partial class TabBarView : ContentView
 {
+    public const double TabsHeight = 80;
+    public const double IconHeight = 20;
+
+    readonly Color barColor;
+    readonly Color circleColor;
+
     bool initialChange = true;
-    float innerRadius => (float)backGraphicsView.Height / (11f / 4f);
-    float outerRadius => innerRadius + ((float)backGraphicsView.Height / 12f);
-    double iconHeight => 20;
-    double selectedIconTranslation => ((innerRadius * 2) - iconHeight) / 2;
-    double defaultIconTranslation => ((backGraphicsView.Height - innerRadius - iconHeight) / 2) + innerRadius;
+    double selectedIconTranslation =>
+        ((CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding) * 2) - IconHeight) / 2;
+    double defaultIconTranslation =>
+        ((CalculateTabsHeight((float)backGraphicsView.Height, TabsPadding) -
+        CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding) - IconHeight) / 2) +
+        CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding);
 
     TabBarViewDrawable drawable = null;
     ContentButton currentButton = null;
-    TabBarIconView currentIconView = null;
-    IList<TabBarIconView> iconViews;
-    
-    readonly Color barColor;
-    readonly Color circleColor;
+    TabBarIconView currentIconView => currentButton.Content as TabBarIconView;
+
+    public static readonly BindableProperty TabsPaddingProperty =
+        BindableProperty.Create(nameof(TabsPadding), typeof(Thickness), typeof(TabBarView), defaultValue: Thickness.Zero, propertyChanged: OnTabsPaddingChanged);
+
+    public Thickness TabsPadding
+    {
+        get => (Thickness)GetValue(TabsPaddingProperty);
+        set => SetValue(TabsPaddingProperty, value);
+    }
 
     public event Action<object, TabBarEventArgs> CurrentPageSelectionChanged;
 
@@ -32,13 +44,8 @@ public partial class TabBarView : ContentView
 
         InitializeComponent();
 
-        iconViews = buttonsGrid.Children
-            .Cast<ContentButton>()
-            .Select(cb => cb.Content)
-            .Cast<TabBarIconView>()
-            .ToList();
         currentButton = buttonsGrid.First() as ContentButton;
-        currentIconView = currentButton.Content as TabBarIconView;
+        rootGrid.HeightRequest = TabsHeight + TabsPadding.VerticalThickness;
 
         backGraphicsView.SizeChanged += TabBarViewSizeChanged;
     }
@@ -48,20 +55,25 @@ public partial class TabBarView : ContentView
     {
         if (initialChange)
         {
-            drawable = new TabBarViewDrawable(innerRadius, outerRadius, barColor, circleColor);
+            drawable = new TabBarViewDrawable(barColor, circleColor)
+            {
+                TabsPadding = TabsPadding,
+            };
             backGraphicsView.Drawable = drawable;
-            drawable.CircleCenter = new PointF(100, innerRadius);
             backGraphicsView.Invalidate();
 
+            var iconViews = buttonsGrid.Children
+                .Cast<ContentButton>()
+                .Select(cb => cb.Content)
+                .Cast<TabBarIconView>();
+
             foreach (var iconView in iconViews)
-            {
                 iconView.TranslationY = defaultIconTranslation;
-            }
 
             initialChange = false;
         }
 
-        SetCircleToX(GetCircleCenterX(currentButton));
+        SetCircleCenterX(CalculateCircleCenterX(currentButton));
         currentIconView.TranslationY = selectedIconTranslation;
     }
 
@@ -90,42 +102,66 @@ public partial class TabBarView : ContentView
             iconView.TranslationY = v;
         }, iconView.TranslationY, selectedIconTranslation, easing: Easing.SpringOut);
 
-        baseAnimation.Add(0, 0.8d, GetAnimationCircleToX(GetCircleCenterX(button)));
+        baseAnimation.Add(0, 0.8d, CreateAnimationCircleToX(CalculateCircleCenterX(button)));
         baseAnimation.Add(0, (double)baseAnimationLength / animationLength, oldIconAnimation);
         baseAnimation.Add(1 - (double)baseAnimationLength / animationLength, 1, newIconAnimation);
 
         baseAnimation.Commit(this, "Animation", length: baseAnimationLength);
 
-        currentIconView = iconView;
         currentButton = button;
         CurrentPageSelectionChanged?.Invoke(this, new TabBarEventArgs(currentIconView.Page));
     }
 
-    private Animation GetAnimationCircleToX(float newX)
+    private Animation CreateAnimationCircleToX(float newX)
     {
         var circleAnimation = new Animation(v =>
         {
-            drawable.CircleCenter = new PointF((float)v, drawable.CircleCenter.Y);
-            backGraphicsView.Invalidate();
-        }, drawable.CircleCenter.X, newX, easing: Easing.SpringOut, () =>
+            SetCircleCenterX((float)v);
+        }, drawable.CircleCenterX, newX, easing: Easing.SpringOut, () =>
         {
-            drawable.CircleCenter = new PointF(newX, drawable.CircleCenter.Y);
-            backGraphicsView.Invalidate();
+            SetCircleCenterX(newX);
         });
         return circleAnimation;
     }
 
-    private void SetCircleToX(float newX)
+    private void SetCircleCenterX(float newX)
     {
-        drawable.CircleCenter = new PointF(newX, drawable.CircleCenter.Y);
+        drawable.CircleCenterX = newX;
         backGraphicsView.Invalidate();
     }
 
-    private float GetCircleCenterX(ContentButton button)
+    private float CalculateCircleCenterX(ContentButton button)
     {
-        var segmentWidth = backGraphicsView.Width / buttonsGrid.Children.Count;
-        var circleCenterX = (Grid.GetColumn(button) * segmentWidth) + (segmentWidth / 2);
+        var tabsWidth = backGraphicsView.Width - TabsPadding.HorizontalThickness;
+        var segmentWidth = tabsWidth / buttonsGrid.Children.Count;
+        var circleCenterX = (Grid.GetColumn(button) * segmentWidth) + (segmentWidth / 2) + TabsPadding.Left;
 
         return (float)circleCenterX;
     }
+
+    private static void OnTabsPaddingChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var tabBarView = bindable as TabBarView;
+
+        if (newValue is not Thickness padding)
+            return;
+
+        tabBarView.rootGrid.HeightRequest = TabsHeight + padding.VerticalThickness;
+        tabBarView.buttonsGrid.Padding = padding;
+
+        if (tabBarView.drawable is null)
+            return;
+
+        tabBarView.drawable.TabsPadding = padding;
+        tabBarView.backGraphicsView.Invalidate();
+    }
+
+    public static float CalculateTabsHeight(float viewHeight, Thickness padding) =>
+        (float)(viewHeight - padding.VerticalThickness);
+
+    public static float CalculateInnerRadius(float viewHeight, Thickness padding) =>
+        CalculateTabsHeight(viewHeight, padding) / (11f / 4f);
+
+    public static float CalculateOuterRadius(float viewHeight, Thickness padding) =>
+        CalculateInnerRadius(viewHeight, padding) + (CalculateTabsHeight(viewHeight, padding) / 12f);
 }
