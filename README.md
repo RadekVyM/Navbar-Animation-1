@@ -2,33 +2,30 @@
 
 **.NET MAUI** implementation of [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
 
+This project demonstrates how to create **custom tab bar** and integrate it with the `SimpleShell` control from [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit).
+
 ## Original design
 
 [![Dribbble Design](./Images/original%20design.gif)](https://dribbble.com/shots/9852644-Navbar-Animation-1)
 
-## My .NET MAUI implementation
+## Installation
 
-The application was built using .NET MAUI APIs and my [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library.
+First, make sure you have your Visual Studio and .NET 8 environment set up for .NET MAUI development. If not, follow the [setup instructions](https://learn.microsoft.com/dotnet/maui/get-started/installation). Then make sure you have your [Android](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-android) or [iOS](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-ios) platform set up for deployment of the application.
+
+Once everything is set up, you can clone the repo and run the application via Visual Studio or Visual Studio Code.
+
+Here are some resources to learn more about .NET MAUI:
+
+- [Official website](https://dotnet.microsoft.com/apps/maui)
+- [Microsoft Learn](https://learn.microsoft.com/dotnet/maui/what-is-maui)
+- [.NET MAUI GitHub repository](https://github.com/dotnet/maui)
+
+## Features
+
+Only .NET MAUI APIs and my [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library were used to create this sample.
 
 <p align="center">
-    <img src="./Images/navbaranimation%20gif%20720.gif" data-canonical-src="./Images/navbaranimation%20gif%20720.gif" height="600" />
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <img src="./Images/iphone_navbaranimation_1.png" data-canonical-src="./Images/iphone_navbaranimation_1.png" height="600" />
+    <img src="./Images/android_navbaranimation1.webp" width="220">
+    &nbsp;&nbsp;
+    <img src="./Images/iphone_navbaranimation1.webp" width="226">
 </p>
-
-### Supported platforms
-
-These are all the platforms the app works on:
-
-- Android
-- iOS (macOS)
-- Windows
-
-### Features
-
-- Use of [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library
-    - `SimpleShell`
-    - `ContentButton`
-    - `Icon`
-- `GraphicsView`
-- Animations
