@@ -3,7 +3,7 @@
 **.NET MAUI** implementation of the [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
 
 
-https://github.com/RadekVyM/Navbar-Animation-1/assets/65116078/ea396db0-98b7-4412-9eaf-56203ffeb3ee
+https://github.com/user-attachments/assets/70a8f41f-7645-4841-b119-cace4dfee0aa
 
 
 This project demonstrates how to create **custom tab bar** and integrate it with the `SimpleShell` control from [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit).
