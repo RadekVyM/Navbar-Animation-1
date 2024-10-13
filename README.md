@@ -1,6 +1,6 @@
 # Navbar Animation #1
 
-**.NET MAUI** implementation of the [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
+**.NET MAUI** tab bar inspired by the [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
 
 
 https://github.com/user-attachments/assets/70a8f41f-7645-4841-b119-cace4dfee0aa
