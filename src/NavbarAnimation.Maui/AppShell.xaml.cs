@@ -10,11 +10,11 @@ public partial class AppShell : SimpleShell
     {
         InitializeComponent();
 
-        AddTab(typeof(RibbonPage), PageType.RibbonPage);
-        AddTab(typeof(FolderPage), PageType.FolderPage);
         AddTab(typeof(HomePage), PageType.HomePage);
-        AddTab(typeof(PinPage), PageType.PinPage);
         AddTab(typeof(ChatPage), PageType.ChatPage);
+        AddTab(typeof(RibbonPage), PageType.RibbonPage);
+        AddTab(typeof(PinPage), PageType.PinPage);
+        AddTab(typeof(FolderPage), PageType.FolderPage);
 
         Loaded += AppShellLoaded;
     }

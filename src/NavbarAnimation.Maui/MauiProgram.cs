@@ -26,6 +26,10 @@ public static class MauiProgram
         builder.DisplayContentBehindBars();
 #endif
 
+#if ANDROID
+        builder.SetDefaultNavigationBarAppearance(Color.FromArgb("#71C1F7"));
+#endif
+
         return builder.Build();
     }
 }

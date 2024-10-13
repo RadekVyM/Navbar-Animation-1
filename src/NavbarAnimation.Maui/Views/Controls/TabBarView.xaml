@@ -37,18 +37,18 @@
             ColumnDefinitions="*, *, *, *, *">
             <simpleCore:ContentButton
                 Grid.Column="0" Clicked="ButtonTapped"
-                SemanticProperties.Description="Ribbon page">
-                <c:TabBarIconView Source="icon_ribbon.png" Page="RibbonPage"/>
+                SemanticProperties.Description="Home page">
+                <c:TabBarIconView Source="icon_house.png" Page="HomePage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="1" Clicked="ButtonTapped"
-                SemanticProperties.Description="Folder page">
-                <c:TabBarIconView Source="icon_folder.png" Page="FolderPage"/>
+                SemanticProperties.Description="Chat page">
+                <c:TabBarIconView Source="icon_chat.png" Page="ChatPage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="2" Clicked="ButtonTapped"
-                SemanticProperties.Description="Home page">
-                <c:TabBarIconView Source="icon_house.png" Page="HomePage"/>
+                SemanticProperties.Description="Ribbon page">
+                <c:TabBarIconView Source="icon_ribbon.png" Page="RibbonPage"/>
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="3" Clicked="ButtonTapped"
@@ -57,8 +57,8 @@
             </simpleCore:ContentButton>
             <simpleCore:ContentButton
                 Grid.Column="4" Clicked="ButtonTapped"
-                SemanticProperties.Description="Chat page">
-                <c:TabBarIconView Source="icon_chat.png" Page="ChatPage"/>
+                SemanticProperties.Description="Folder page">
+                <c:TabBarIconView Source="icon_folder.png" Page="FolderPage"/>
             </simpleCore:ContentButton>
         </Grid>
     </Grid>

@@ -1,6 +1,6 @@
 # Navbar Animation #1
 
-**.NET MAUI** implementation of [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
+**.NET MAUI** implementation of the [Navbar Animation #1](https://dribbble.com/shots/9852644-Navbar-Animation-1) design by [Marie Bernard](https://dribbble.com/marie_brn).
 
 
 https://github.com/RadekVyM/Navbar-Animation-1/assets/65116078/ea396db0-98b7-4412-9eaf-56203ffeb3ee
@@ -29,7 +29,7 @@ Here are some resources to learn more about .NET MAUI:
 Only .NET MAUI APIs and my [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library were used to create this sample.
 
 <p align="center">
-    <img src="./Images/android_navbaranimation1.webp" width="220">
+    <img src="./Images/android_navbaranimation1.webp" width="218">
     &nbsp;&nbsp;
     <img src="./Images/iphone_navbaranimation1.webp" width="226">
 </p>

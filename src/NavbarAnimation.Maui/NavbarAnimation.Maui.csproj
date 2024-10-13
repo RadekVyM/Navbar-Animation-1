@@ -34,16 +34,18 @@
 	  <CreatePackage>false</CreatePackage>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="SimpleToolkit.Core" Version="4.0.0" />
-		<PackageReference Include="SimpleToolkit.SimpleShell" Version="4.1.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+		<PackageReference Include="SimpleToolkit.Core" Version="5.0.0" />
+		<PackageReference Include="SimpleToolkit.SimpleShell" Version="4.1.3" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#fb526b" />
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0D8EEB" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#fb526b" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0D8EEB" BaseSize="128,128" />
 
 		<MauiFont Include="Resources\Fonts\*" />
 		<!-- Images -->
@@ -51,36 +53,5 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="Resources\Fonts\Comfortaa-Bold.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-Light.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-Medium.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-Regular.ttf" />
-	  <None Remove="Resources\Fonts\Comfortaa-SemiBold.ttf" />
-	  <None Remove="Resources\Images\icon_ribbon.png" />
-	  <None Remove="Resources\Images\icon_house.png" />
-	  <None Remove="Resources\Images\icon_pin.png" />
-	  <None Remove="Resources\Images\icon_folder.png" />
-	  <None Remove="Resources\Images\icon_chat.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiFont Update="Resources\Fonts\Comfortaa-Bold.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiFont>
-	  <MauiFont Update="Resources\Fonts\Comfortaa-Light.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiFont>
-	  <MauiFont Update="Resources\Fonts\Comfortaa-Medium.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiFont>
-	  <MauiFont Update="Resources\Fonts\Comfortaa-Regular.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiFont>
-	  <MauiFont Update="Resources\Fonts\Comfortaa-SemiBold.ttf">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiFont>
 	</ItemGroup>
 </Project>
