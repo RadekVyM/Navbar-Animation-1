@@ -1,4 +1,5 @@
-﻿using SimpleToolkit.Core;
+﻿using CommunityToolkit.Maui;
+using SimpleToolkit.SimpleButton;
 using SimpleToolkit.SimpleShell;
 
 namespace NavbarAnimation.Maui;
@@ -19,16 +20,9 @@ public static class MauiProgram
                 fonts.AddFont("Comfortaa-Medium.ttf", "MediumFont");
                 fonts.AddFont("Comfortaa-SemiBold.ttf", "SemiBoldFont");
             })
-            .UseSimpleToolkit()
+            .UseMauiCommunityToolkit()
+            .UseSimpleButton()
             .UseSimpleShell();
-
-#if ANDROID || IOS
-        builder.DisplayContentBehindBars();
-#endif
-
-#if ANDROID
-        builder.SetDefaultNavigationBarAppearance(Color.FromArgb("#71C1F7"));
-#endif
 
         return builder.Build();
     }

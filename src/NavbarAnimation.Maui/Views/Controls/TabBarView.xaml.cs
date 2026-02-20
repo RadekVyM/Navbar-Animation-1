@@ -1,8 +1,9 @@
-using SimpleToolkit.Core;
+using SimpleToolkit.Helpers;
+using SimpleToolkit.SimpleButton;
 
 namespace NavbarAnimation.Maui.Views.Controls;
 
-public partial class TabBarView : ContentView
+public partial class TabBarView : VerticalStackLayout
 {
     public const double TabsHeight = 80;
     public const double IconHeight = 20;
@@ -10,26 +11,18 @@ public partial class TabBarView : ContentView
     readonly Color barColor;
     readonly Color circleColor;
 
-    bool initialChange = true;
     double selectedIconTranslation =>
-        ((CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding) * 2) - IconHeight) / 2;
+        ((CalculateInnerRadius((float)Height, tabsPadding) * 2) - IconHeight) / 2;
     double defaultIconTranslation =>
-        ((CalculateTabsHeight((float)backGraphicsView.Height, TabsPadding) -
-        CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding) - IconHeight) / 2) +
-        CalculateInnerRadius((float)backGraphicsView.Height, TabsPadding);
+        ((CalculateTabsHeight((float)Height, tabsPadding) -
+        CalculateInnerRadius((float)Height, tabsPadding) - IconHeight) / 2) +
+        CalculateInnerRadius((float)Height, tabsPadding);
 
     TabBarViewDrawable drawable = null;
-    ContentButton currentButton = null;
+    SimpleButton currentButton = null;
     TabBarIconView currentIconView => currentButton.Content as TabBarIconView;
 
-    public static readonly BindableProperty TabsPaddingProperty =
-        BindableProperty.Create(nameof(TabsPadding), typeof(Thickness), typeof(TabBarView), defaultValue: Thickness.Zero, propertyChanged: OnTabsPaddingChanged);
-
-    public Thickness TabsPadding
-    {
-        get => (Thickness)GetValue(TabsPaddingProperty);
-        set => SetValue(TabsPaddingProperty, value);
-    }
+    private Thickness tabsPadding { get; set; }
 
     public event Action<object, TabBarEventArgs> CurrentPageSelectionChanged;
 
@@ -44,34 +37,31 @@ public partial class TabBarView : ContentView
 
         InitializeComponent();
 
-        currentButton = buttonsGrid.First() as ContentButton;
-        rootGrid.HeightRequest = TabsHeight + TabsPadding.VerticalThickness;
+        currentButton = buttonsGrid.First() as SimpleButton;
 
-        backGraphicsView.SizeChanged += TabBarViewSizeChanged;
+        SizeChanged += OnTabBarSizeChanged;
     }
 
 
-    private void TabBarViewSizeChanged(object sender, EventArgs e)
+    private void OnTabBarSizeChanged(object sender, EventArgs e)
     {
-        if (initialChange)
-        {
-            drawable = new TabBarViewDrawable(barColor, circleColor)
-            {
-                TabsPadding = TabsPadding,
-            };
-            backGraphicsView.Drawable = drawable;
-            backGraphicsView.Invalidate();
+        var insets = WindowInsetsProvider.GetInsets();
+        tabsPadding = insets with { Top = 0 };
 
-            var iconViews = buttonsGrid.Children
-                .Cast<ContentButton>()
-                .Select(cb => cb.Content)
-                .Cast<TabBarIconView>();
+        backGraphicsView.HeightRequest = buttonsGrid.HeightRequest = TabsHeight + tabsPadding.Bottom;
+        buttonsGrid.Padding = tabsPadding;
 
-            foreach (var iconView in iconViews)
-                iconView.TranslationY = defaultIconTranslation;
+        backGraphicsView.Drawable ??= drawable = new TabBarViewDrawable(barColor, circleColor);
+        drawable.TabsPadding = tabsPadding;
+        backGraphicsView.Invalidate();
 
-            initialChange = false;
-        }
+        var iconViews = buttonsGrid.Children
+            .Cast<SimpleButton>()
+            .Select(cb => cb.Content)
+            .Cast<TabBarIconView>();
+
+        foreach (var iconView in iconViews)
+            iconView.TranslationY = defaultIconTranslation;
 
         SetCircleCenterX(CalculateCircleCenterX(currentButton));
         currentIconView.TranslationY = selectedIconTranslation;
@@ -79,7 +69,7 @@ public partial class TabBarView : ContentView
 
     private void ButtonTapped(object sender, EventArgs e)
     {
-        var button = sender as ContentButton;
+        var button = sender as SimpleButton;
         var iconView = button.Content as TabBarIconView;
 
         int difference = Math.Abs(Grid.GetColumn(currentButton) - Grid.GetColumn(button));
@@ -130,30 +120,13 @@ public partial class TabBarView : ContentView
         backGraphicsView.Invalidate();
     }
 
-    private float CalculateCircleCenterX(ContentButton button)
+    private float CalculateCircleCenterX(SimpleButton button)
     {
-        var tabsWidth = backGraphicsView.Width - TabsPadding.HorizontalThickness;
+        var tabsWidth = Width - tabsPadding.HorizontalThickness;
         var segmentWidth = tabsWidth / buttonsGrid.Children.Count;
-        var circleCenterX = (Grid.GetColumn(button) * segmentWidth) + (segmentWidth / 2) + TabsPadding.Left;
+        var circleCenterX = (Grid.GetColumn(button) * segmentWidth) + (segmentWidth / 2) + tabsPadding.Left;
 
         return (float)circleCenterX;
-    }
-
-    private static void OnTabsPaddingChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var tabBarView = bindable as TabBarView;
-
-        if (newValue is not Thickness padding)
-            return;
-
-        tabBarView.rootGrid.HeightRequest = TabsHeight + padding.VerticalThickness;
-        tabBarView.buttonsGrid.Padding = padding;
-
-        if (tabBarView.drawable is null)
-            return;
-
-        tabBarView.drawable.TabsPadding = padding;
-        tabBarView.backGraphicsView.Invalidate();
     }
 
     public static float CalculateTabsHeight(float viewHeight, Thickness padding) =>

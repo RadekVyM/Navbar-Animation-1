@@ -1,5 +1,4 @@
 ﻿using NavbarAnimation.Maui.Views.Pages;
-using SimpleToolkit.Core;
 using SimpleToolkit.SimpleShell;
 
 namespace NavbarAnimation.Maui;
@@ -15,21 +14,8 @@ public partial class AppShell : SimpleShell
         AddTab(typeof(RibbonPage), PageType.RibbonPage);
         AddTab(typeof(PinPage), PageType.PinPage);
         AddTab(typeof(FolderPage), PageType.FolderPage);
-
-        Loaded += AppShellLoaded;
     }
 
-
-    private static void AppShellLoaded(object sender, EventArgs e)
-    {
-        var shell = sender as AppShell;
-
-        shell.Window.SubscribeToSafeAreaChanges(safeArea =>
-        {
-            shell.pageContainer.Margin = safeArea;
-            shell.tabBarView.TabsPadding = new Thickness(safeArea.Left, 0, safeArea.Right, safeArea.Bottom);
-        });
-    }
 
     private void AddTab(Type page, PageType pageEnum)
     {

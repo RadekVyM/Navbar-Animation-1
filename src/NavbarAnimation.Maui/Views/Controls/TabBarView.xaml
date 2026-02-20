@@ -1,65 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView
+<VerticalStackLayout
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:c="clr-namespace:NavbarAnimation.Maui.Views.Controls"
-    xmlns:simpleCore="clr-namespace:SimpleToolkit.Core;assembly=SimpleToolkit.Core"
+    xmlns:sb="clr-namespace:SimpleToolkit.SimpleButton;assembly=SimpleToolkit.SimpleButton"
     x:Class="NavbarAnimation.Maui.Views.Controls.TabBarView"
-    InputTransparent="False">
+    SafeAreaEdges="None"
+    VerticalOptions="End">
 
-    <ContentView.Resources>
+    <VerticalStackLayout.Resources>
         <Style TargetType="{x:Type c:TabBarIconView}">
             <Setter Property="HeightRequest" Value="20"/>
             <Setter Property="WidthRequest" Value="30"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="VerticalOptions" Value="Start"/>
         </Style>
-        <Style TargetType="{x:Type simpleCore:ContentButton}">
+        <Style TargetType="{x:Type sb:SimpleButton}">
             <Setter Property="VerticalOptions" Value="Fill"/>
             <Setter Property="HorizontalOptions" Value="Fill"/>
             <Setter Property="Margin" Value="0"/>
             <Setter Property="Background" Value="Transparent"/>
         </Style>
-    </ContentView.Resources>
+    </VerticalStackLayout.Resources>
 
     <Grid
         x:Name="rootGrid"
-        VerticalOptions="Center"
-        CompressedLayout.IsHeadless="True">
+        VerticalOptions="End"
+        SafeAreaEdges="None">
         <GraphicsView
             x:Name="backGraphicsView"
+            VerticalOptions="Fill"
             InputTransparent="True"
-            Background="Transparent"/>
+            Background="Transparent" />
         <Grid
             x:Name="buttonsGrid"
-            CompressedLayout.IsHeadless="True"
-            VerticalOptions="Fill" HorizontalOptions="Fill"
-            ColumnDefinitions="*, *, *, *, *">
-            <simpleCore:ContentButton
+            VerticalOptions="End"
+            HorizontalOptions="Fill"
+            ColumnDefinitions="*, *, *, *, *"
+            SafeAreaEdges="None">
+            <sb:SimpleButton
                 Grid.Column="0" Clicked="ButtonTapped"
-                SemanticProperties.Description="Home page">
+                SemanticProperties.Description="Home page"
+                SafeAreaEdges="None">
                 <c:TabBarIconView Source="icon_house.png" Page="HomePage"/>
-            </simpleCore:ContentButton>
-            <simpleCore:ContentButton
+            </sb:SimpleButton>
+            <sb:SimpleButton
                 Grid.Column="1" Clicked="ButtonTapped"
-                SemanticProperties.Description="Chat page">
+                SemanticProperties.Description="Chat page"
+                SafeAreaEdges="None">
                 <c:TabBarIconView Source="icon_chat.png" Page="ChatPage"/>
-            </simpleCore:ContentButton>
-            <simpleCore:ContentButton
+            </sb:SimpleButton>
+            <sb:SimpleButton
                 Grid.Column="2" Clicked="ButtonTapped"
-                SemanticProperties.Description="Ribbon page">
+                SemanticProperties.Description="Ribbon page"
+                SafeAreaEdges="None">
                 <c:TabBarIconView Source="icon_ribbon.png" Page="RibbonPage"/>
-            </simpleCore:ContentButton>
-            <simpleCore:ContentButton
+            </sb:SimpleButton>
+            <sb:SimpleButton
                 Grid.Column="3" Clicked="ButtonTapped"
-                SemanticProperties.Description="Pin page">
+                SemanticProperties.Description="Pin page"
+                SafeAreaEdges="None">
                 <c:TabBarIconView Source="icon_pin.png" Page="PinPage"/>
-            </simpleCore:ContentButton>
-            <simpleCore:ContentButton
+            </sb:SimpleButton>
+            <sb:SimpleButton
                 Grid.Column="4" Clicked="ButtonTapped"
-                SemanticProperties.Description="Folder page">
+                SemanticProperties.Description="Folder page"
+                SafeAreaEdges="None">
                 <c:TabBarIconView Source="icon_folder.png" Page="FolderPage"/>
-            </simpleCore:ContentButton>
+            </sb:SimpleButton>
         </Grid>
     </Grid>
-</ContentView>
+</VerticalStackLayout>

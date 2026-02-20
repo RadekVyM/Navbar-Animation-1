@@ -13,13 +13,14 @@
     </TabBar>
 
     <simpleShell:SimpleShell.RootPageContainer>
-        <Grid>
+        <Grid
+            SafeAreaEdges="None">
             <simpleShell:SimpleNavigationHost
-                x:Name="pageContainer"/>
+                x:Name="pageContainer" />
             <controls:TabBarView
                 x:Name="tabBarView"
                 VerticalOptions="End" HorizontalOptions="Fill"
-                CurrentPageSelectionChanged="TabBarViewCurrentPageChanged"/>
+                CurrentPageSelectionChanged="TabBarViewCurrentPageChanged" />
         </Grid>
     </simpleShell:SimpleShell.RootPageContainer>
     

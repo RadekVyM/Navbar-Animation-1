@@ -2,17 +2,17 @@
 <ContentView
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:simpleCore="clr-namespace:SimpleToolkit.Core;assembly=SimpleToolkit.Core"
-    x:Class="NavbarAnimation.Maui.Views.Controls.TabBarIconView">
-    <ContentView.Resources>
-        <Style x:Key="IconStyle" TargetType="{x:Type simpleCore:Icon}">
-            <Setter Property="HorizontalOptions" Value="Center"/>
-            <Setter Property="VerticalOptions" Value="Fill"/>
-            <Setter Property="TintColor" Value="White"/>
-        </Style>
-    </ContentView.Resources>
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="NavbarAnimation.Maui.Views.Controls.TabBarIconView"
+    SafeAreaEdges="None">
 
-    <simpleCore:Icon
-        Style="{StaticResource IconStyle}"
-        Source="{Binding Source}"/>
+    <Image
+        Source="{Binding Source}"
+        HorizontalOptions="Center"
+        VerticalOptions="Fill">
+        <Image.Behaviors>
+            <toolkit:IconTintColorBehavior
+                TintColor="White" />
+        </Image.Behaviors>
+    </Image>
 </ContentView>

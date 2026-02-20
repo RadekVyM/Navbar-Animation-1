@@ -1,5 +1,3 @@
-using Microsoft.Maui.Controls.Shapes;
-
 namespace NavbarAnimation.Maui.Views.Controls;
 
 public partial class TabBarIconView : ContentView
