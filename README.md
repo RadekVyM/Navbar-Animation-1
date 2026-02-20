@@ -10,13 +10,17 @@ This project demonstrates how to create **custom tab bar** and integrate it with
 
 ## Original design
 
+<div align="center">
+
 [![Dribbble Design](./Images/original%20design.gif)](https://dribbble.com/shots/9852644-Navbar-Animation-1)
+
+</div>
 
 ## Installation
 
-First, make sure you have your Visual Studio and .NET 8 environment set up for .NET MAUI development. If not, follow the [setup instructions](https://learn.microsoft.com/dotnet/maui/get-started/installation). Then make sure you have your [Android](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-android) or [iOS](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-ios) platform set up for deployment of the application.
+First, make sure you have your .NET 10 environment set up for .NET MAUI development. If not, follow the [setup instructions](https://learn.microsoft.com/dotnet/maui/get-started/installation). Then make sure you have your [Android](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-android) or [iOS](https://learn.microsoft.com/dotnet/maui/get-started/first-app?pivots=devices-ios) platform set up for deployment of the application.
 
-Once everything is set up, you can clone the repo and run the application via Visual Studio or Visual Studio Code.
+Once everything is set up, you can clone the repository and run the application.
 
 Here are some resources to learn more about .NET MAUI:
 
@@ -26,7 +30,7 @@ Here are some resources to learn more about .NET MAUI:
 
 ## Features
 
-Only .NET MAUI APIs and my [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library were used to create this sample.
+Only .NET MAUI APIs, my [SimpleToolkit](https://github.com/RadekVyM/SimpleToolkit) library, and [.NET MAUI Community Toolkit](https://github.com/CommunityToolkit/Maui) were used to create this sample.
 
 <p align="center">
     <img src="./Images/android_navbaranimation1.webp" width="218">
